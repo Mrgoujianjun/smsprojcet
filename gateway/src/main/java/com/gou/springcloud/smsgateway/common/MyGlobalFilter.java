@@ -35,10 +35,10 @@ public class MyGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        if (ignorePath != null) {
+        if (!"null".equals(ignorePath)) {
             List<String> paths = Arrays.asList(StringUtils.split(ignorePath, ","));
             if (paths.contains(exchange.getRequest().getURI().getPath())) {
-                chain.filter(exchange);
+                return chain.filter(exchange);
             }
         }
         List<String> tokens = exchange.getRequest().getHeaders().get(authorToken);
