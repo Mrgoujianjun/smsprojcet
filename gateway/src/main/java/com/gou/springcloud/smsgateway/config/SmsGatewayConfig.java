@@ -6,9 +6,11 @@ import com.gou.springcloud.smsgateway.common.VerifyUserInfo;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.gateway.config.LoadBalancerProperties;
+import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import reactor.core.publisher.Mono;
 
 /**
  * @author goujianjun
@@ -42,5 +44,10 @@ public class SmsGatewayConfig {
     @Bean
     public MyLoadBalanceRule myLoadBalanceRule() {
         return new MyLoadBalanceRule();
+    }
+
+    @Bean(name = "remoteAddrKeyResolver")
+    public KeyResolver remoteAddressResolver() {
+        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
     }
 }
