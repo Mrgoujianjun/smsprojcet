@@ -34,6 +34,7 @@
         <module>consul</module>
         <module>nacos</module>
         <module>gateway</module>
+        <module>sleuth</module>
     </modules>
 
     <dependencies>

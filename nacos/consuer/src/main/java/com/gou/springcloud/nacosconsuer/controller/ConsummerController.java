@@ -14,8 +14,9 @@ public class ConsummerController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @RequestMapping(value = "hello-restTemplate")
+    @RequestMapping(value = "helloRestTemplate")
     public String helloRestTemplate() {
-        return restTemplate.getForObject("http://nacos-provider/hi?name=restTemplate", String.class);
+        String rest = restTemplate.getForObject("http://localhost:8762/getUserInfo", String.class);
+        return rest;
     }
 }
