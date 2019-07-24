@@ -1,6 +1,5 @@
 package com.gou.springcloud.common.common;
 
-import com.gou.springcloud.common.context.ContextInfo;
 import lombok.Data;
 
 /**
@@ -8,29 +7,38 @@ import lombok.Data;
  * @date 2019-06-04 15:51
  */
 @Data
-public class Response {
+public class Response<T> {
+    public static String SUCCESS_CODE = "200";
+    public static String SUCCESS_CONTEXT = "处理成功";
     private String code;
     private String message;
-    private String context;
+    private T context;
 
-    public Response buildResponse(String code) {
-        switch (code) {
-            case "200":
-                this.code = code;
-                this.message = ContextInfo.SUCCESS_MESSAGE;
-                break;
-            case "401":
-                this.code = code;
-                this.message = ContextInfo.FAILD_MESSAGE;
-            default:
-                break;
-        }
+    public Response() {
+        this.code = SUCCESS_CODE;
+        this.message = SUCCESS_CONTEXT;
+    }
+
+    public Response(String code, String message) {
+        this(code, message, null);
+    }
+
+    public Response(String code, String message, T context) {
+        this.code(code).message(message).context(context);
+    }
+
+    public Response<T> code(String code) {
+        this.code = code;
         return this;
     }
 
-    public Response buildResponse(String code, String message) {
-        this.code = code;
+    public Response<T> message(String message) {
         this.message = message;
+        return this;
+    }
+
+    public Response<T> context(T context) {
+        this.context = context;
         return this;
     }
 }

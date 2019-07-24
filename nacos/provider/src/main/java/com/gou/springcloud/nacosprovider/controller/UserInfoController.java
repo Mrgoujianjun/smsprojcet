@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author goujianjun
  * @date 2019/5/29 10:12
  */
+
 @RestController
 @Slf4j
 public class UserInfoController {
