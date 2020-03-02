@@ -1,28 +1,35 @@
 package com.gou.springcloud.common.common;
 
+import com.gou.springcloud.common.bean.GlobalConstant;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 /**
  * @author goujianjun
  * @date 2019-07-24 15:33
  */
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class ResponseWrapper {
-    private ResponseWrapper() {
+    private Integer code;
+    private String message;
 
+    public static ResponseWrapper ok() {
+        ResponseWrapper responseWrapper = new ResponseWrapper();
+        responseWrapper.setCode(GlobalConstant.SUCCESS_CODE);
+        responseWrapper.setMessage(GlobalConstant.SUCCESS_MESSAGE);
+        return responseWrapper;
     }
 
-    public static <E> Response<E> ok() {
-        return new Response<>();
+    public static ResponseWrapper wrap(Integer code, String message) {
+        ResponseWrapper responseWrapper = new ResponseWrapper();
+        responseWrapper.setCode(code);
+        responseWrapper.setMessage(message);
+        return responseWrapper;
     }
 
-    public static <E> Response<E> ok(E result) {
-        return new Response<E>(Response.SUCCESS_CODE, Response.SUCCESS_CONTEXT, result);
-    }
-
-    public static <E> Response<E> wrap(String code, String messaeg, E context) {
-        return new Response<>(code, messaeg, context);
-    }
-
-    public static <E> Response<E> wrap(String code, String messaeg) {
-        return new Response<>(code, messaeg);
-    }
 }

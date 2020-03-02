@@ -2,7 +2,6 @@ package com.gou.springcloud.common.tools;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -53,13 +52,24 @@ public class RedisUtilTool {
     }
 
     /**
+     * 是否包含key
+     * @param key
+     * @return
+     */
+    public boolean hasKey(Serializable key) {
+        return redisTemplate.hasKey(key);
+    }
+
+    ;
+
+    /**
      * 散列添加对应的值
      *
      * @param key
      * @param key1
      * @param value
      */
-    public void addHmset(Serializable key, Serializable key1, Object value) {
+    public void addHmset(Serializable key, Serializable key1, Object ... value) {
         hashOperations.put(key, key1, value);
     }
 

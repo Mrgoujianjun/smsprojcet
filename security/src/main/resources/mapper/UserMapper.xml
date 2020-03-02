@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gou.springcloud.security.dao">
+    <select id="findUsers" resultType="user" parameterType="user">
+        select name from t_user
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%',#{user.name},'%')
+            </if>
+        </where>
+    </select>
+    <select id="getUserByUsername" resultType="int" parameterType="string">
+        select count(id) total from t_user t where t.username = #{username}
+    </select>
+    <insert id="addUser" parameterType="user">
+        insert into t_user (id,username,password,status,create_time,modify_time) values (#{id},#{username},#{password},#{status},#{createTime},#{modifyTime})
+    </insert>
+    <update id="updateById" parameterType="user">
+        update t_user t
+        <set>
+            <if test="name != null and name != ''">name = #{name}</if>
+            <if test="modifyTime != null">,modify_time = #{modifyTime}</if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <delete id="deleteById" parameterType="string">
+        delete from t_user where id=#{id}
+    </delete>
+</mapper>
