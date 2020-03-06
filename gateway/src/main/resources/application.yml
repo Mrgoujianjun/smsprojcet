@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - name: Hystrix
+          args:
+            name: default
+            fallbackUri: 'forward:/defaultFallback'

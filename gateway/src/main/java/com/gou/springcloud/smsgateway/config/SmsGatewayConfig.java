@@ -2,7 +2,6 @@ package com.gou.springcloud.smsgateway.config;
 
 import com.gou.springcloud.smsgateway.common.MyBalanceHandler;
 import com.gou.springcloud.smsgateway.common.MyLoadBalanceRule;
-import com.gou.springcloud.smsgateway.common.VerifyUserInfo;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.gateway.config.LoadBalancerProperties;
@@ -18,10 +17,6 @@ import reactor.core.publisher.Mono;
  */
 @Configuration
 public class SmsGatewayConfig {
-    @Bean
-    public VerifyUserInfo verifyUserInfo() {
-        return new VerifyUserInfo();
-    }
 
     @Bean
     @LoadBalanced
@@ -50,4 +45,6 @@ public class SmsGatewayConfig {
     public KeyResolver remoteAddressResolver() {
         return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
     }
+
+
 }

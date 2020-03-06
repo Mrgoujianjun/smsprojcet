@@ -1,10 +1,12 @@
 package com.gou.springcloud.common.tools;
 
+import ch.qos.logback.core.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author goujianjun
@@ -32,6 +34,18 @@ public class RedisUtilTool {
      */
     public void addString(Serializable key, Object value) {
         valueOperations.set(key, value);
+    }
+
+    /**
+     *
+     * @param key
+     * @param value
+     * @param timeout
+     * @param timeUnit
+     */
+    public void addExpireStr(Serializable key,Object value,long timeout,TimeUnit timeUnit){
+        valueOperations.set(key,value);
+        expire(key,timeout,timeUnit);
     }
 
     /**
@@ -69,7 +83,7 @@ public class RedisUtilTool {
      * @param key1
      * @param value
      */
-    public void addHmset(Serializable key, Serializable key1, Object ... value) {
+    public void addHmset(Serializable key, Serializable key1, Object value) {
         hashOperations.put(key, key1, value);
     }
 
@@ -141,6 +155,16 @@ public class RedisUtilTool {
      */
     public Long rmSet(Serializable key, Object value) {
         return setOperations.remove(key, value);
+    }
+
+    /**
+     * 过期设置
+     * @param key
+     * @param time
+     * @param timeUnit
+     */
+    private void expire(Serializable key,long time,TimeUnit timeUnit){
+        redisTemplate.expire(key,time,timeUnit);
     }
 
 }

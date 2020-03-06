@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @author goujianjun
  * @email lygoujianjun@163.com
  * @date 2020-03-02 16:16
+ * redis 分布式锁
  */
 @Component
 @Slf4j
@@ -95,7 +96,7 @@ public class DistributedLockHandler {
             long startTime = System.currentTimeMillis();
             do {
                 if (!redisUtilTool.hasKey(lock.getName())) {
-                    redisUtilTool.addHmset(lock.getName(), lock.getValue(), lockExpireTime, TimeUnit.MILLISECONDS);
+                    redisUtilTool.addExpireStr(lock.getName(), lock.getValue(), lockExpireTime, TimeUnit.MILLISECONDS);
                     return true;
                 } else {
                     log.warn("lock is exist !");

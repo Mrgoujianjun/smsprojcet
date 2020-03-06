@@ -5,6 +5,7 @@ import com.netflix.loadbalancer.AbstractLoadBalancerRule;
 import com.netflix.loadbalancer.Server;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.math.RandomUtils;
+
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class MyLoadBalanceRule extends AbstractLoadBalancerRule {
         if (key == null) {
             return randomServer(serverList);
         }
-        return getServer(serverList,key);
+        return getServer(serverList, key);
     }
 
     /**
