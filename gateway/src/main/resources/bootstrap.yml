@@ -5,9 +5,9 @@ spring:
     nacos:
       config:
         file-extension: yaml
-        server-addr: 192.168.31.136:8848
+        server-addr: 192.168.31.140:8848
       discovery:
-        server-addr: 192.168.36.136:8848
+        server-addr: 192.168.31.140:8848
   application:
     name: gateway
 server:
